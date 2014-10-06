@@ -1,22 +1,32 @@
 FROM centos:centos6
 
-RUN yum update -y
-RUN yum install -y haproxy 
-RUN yum install -y golang-src golang golang-pkg-bin-linux-amd64 golang-pkg-linux-amd64 
-RUN yum install -y perl-Error perl-Git git mercurial
+RUN yum install -y wget
+RUN wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+RUN rpm -ivh epel-release-6-8.noarch.rpm
+RUN rm epel-release-6-8.noarch.rpm
+RUN yum --enablerepo=epel update -y
+RUN yum --enablerepo=epel install -y haproxy golang git mercurial  
 
 ENV GOPATH /opt/go
 RUN go get github.com/tools/godep
 RUN go get -t github.com/smartystreets/goconvey
-
 RUN git clone https://github.com/QubitProducts/bamboo.git
-
 ADD . /opt/go/src/github.com/QubitProducts/bamboo
+RUN rm -rf bamboo 
+
 WORKDIR /opt/go/src/github.com/QubitProducts/bamboo
 RUN /opt/go/bin/godep restore
 RUN go build
-RUN ln -s /opt/go/src/github.com/QubitProducts/bamboo /var/bamboo
+ADD /opt/go/src/github.com/QubitProducts/bamboo/bamboo /var/bamboo/
+ADD /opt/go/src/github.com/QubitProducts/bamboo/config /var/bamboo/
+ADD /opt/go/src/github.com/QubitProducts/bamboo/webapp /var/bamboo/
+ADD /opt/go/src/github.com/QubitProducts/bamboo/*.js* /var/bamboo/
+ADD /opt/go/src/github.com/QubitProducts/bamboo/Procfile /var/bamboo/
+ADD /opt/go/src/github.com/QubitProducts/bamboo/LICENSE /var/bamboo/
+ADD /opt/go/src/github.com/QubitProducts/bamboo/README* /var/bamboo/
 
+WORKDIR /var/bamboo
+RUN rm -rf /opt/go/src/github.com/*
 RUN mkdir -p /run/haproxy
 
 EXPOSE 8000
