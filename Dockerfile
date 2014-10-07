@@ -17,9 +17,7 @@ RUN go build
 RUN mkdir /var/bamboo
 RUN mv * /var/bamboo
 WORKDIR /var/bamboo
-RUN ls -l /var/bamboo
 RUN rm -rf main Dockerfile Godeps api bamboo.go builder configuration qzk services /opt/go/src/github.com/*
-RUN ls -l /var/bamboo
 
 RUN mkdir -p /run/haproxy
 
@@ -28,3 +26,4 @@ EXPOSE 80
 
 CMD ["--help"]
 ENTRYPOINT ["/var/bamboo/bamboo"]
+
