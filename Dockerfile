@@ -10,21 +10,12 @@ RUN yum --enablerepo=epel install -y haproxy golang git mercurial
 ENV GOPATH /opt/go
 RUN go get github.com/tools/godep
 RUN go get -t github.com/smartystreets/goconvey
-RUN git clone https://github.com/QubitProducts/bamboo.git
-ADD . /opt/go/src/github.com/QubitProducts/bamboo
-RUN rm -rf bamboo 
-
+RUN git clone https://github.com/QubitProducts/bamboo.git /opt/go/src/github.com/QubitProducts/bamboo
 WORKDIR /opt/go/src/github.com/QubitProducts/bamboo
 RUN /opt/go/bin/godep restore
 RUN go build
-ADD /opt/go/src/github.com/QubitProducts/bamboo/bamboo /var/bamboo/
-ADD /opt/go/src/github.com/QubitProducts/bamboo/config /var/bamboo/
-ADD /opt/go/src/github.com/QubitProducts/bamboo/webapp /var/bamboo/
-ADD /opt/go/src/github.com/QubitProducts/bamboo/*.js* /var/bamboo/
-ADD /opt/go/src/github.com/QubitProducts/bamboo/Procfile /var/bamboo/
-ADD /opt/go/src/github.com/QubitProducts/bamboo/LICENSE /var/bamboo/
-ADD /opt/go/src/github.com/QubitProducts/bamboo/README* /var/bamboo/
-
+RUN rm -rf main Dockerfile Godeps api bamboo.go builder configuration qzk services
+ADD . /var/bamboo/
 WORKDIR /var/bamboo
 RUN rm -rf /opt/go/src/github.com/*
 RUN mkdir -p /run/haproxy
