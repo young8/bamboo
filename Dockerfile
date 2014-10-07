@@ -14,10 +14,13 @@ RUN git clone https://github.com/QubitProducts/bamboo.git /opt/go/src/github.com
 WORKDIR /opt/go/src/github.com/QubitProducts/bamboo
 RUN /opt/go/bin/godep restore
 RUN go build
-RUN rm -rf main Dockerfile Godeps api bamboo.go builder configuration qzk services
-ADD . /var/bamboo/
+RUN mkdir /var/bamboo
+RUN mv * /var/bamboo
 WORKDIR /var/bamboo
-RUN rm -rf /opt/go/src/github.com/*
+RUN ls -l /var/bamboo
+RUN rm -rf main Dockerfile Godeps api bamboo.go builder configuration qzk services /opt/go/src/github.com/*
+RUN ls -l /var/bamboo
+
 RUN mkdir -p /run/haproxy
 
 EXPOSE 8000
