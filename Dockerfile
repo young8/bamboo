@@ -26,4 +26,3 @@ EXPOSE 80
 
 CMD ["--help"]
 ENTRYPOINT ["/var/bamboo/bamboo"]
-
