@@ -5,6 +5,7 @@
       "Host": "meslpbm1.gcio.unicredit.eu:2181,meslpbm2.gcio.unicredit.eu:2181,meslpbm3.gcio.unicredit.eu:2181",
       "Path": "/marathon/state",
       "ReportingDelay": 5
+    }
   },
 
   "Bamboo": {
