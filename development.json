@@ -26,6 +26,6 @@
   "StatsD": {
     "Enabled": false,
     "Host": "localhost:8125",
-    "Prefix": "bamboo-server.lab."
+    "Prefix": "bamboo-server.mesb."
   }
 }
