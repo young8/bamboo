@@ -1,13 +1,17 @@
 {
   "Marathon": {
     "Endpoint": "http://meslpbm1:8080"
+    "Zookeeper": {
+      "Host": "meslpbm1.gcio.unicredit.eu:2181,meslpbm2.gcio.unicredit.eu:2181,meslpbm3.gcio.unicredit.eu:2181",
+      "Path": "/marathon/state",
+      "ReportingDelay": 5
   },
 
   "Bamboo": {
     "Endpoint": "http://localhost:8000",
     "Zookeeper": {
       "Host": "meslpbm1.gcio.unicredit.eu:2181,meslpbm2.gcio.unicredit.eu:2181,meslpbm3.gcio.unicredit.eu:2181",
-      "Path": "/marathon/state",
+      "Path": "/marathon-haproxy/state",
       "ReportingDelay": 5
     }
   },
@@ -21,6 +25,6 @@
   "StatsD": {
     "Enabled": false,
     "Host": "localhost:8125",
-    "Prefix": "bamboo-server.development."
+    "Prefix": "bamboo-server.lab."
   }
 }
