@@ -17,7 +17,7 @@ WORKDIR /var/bamboo
 RUN rm -rf main Dockerfile Godeps api bamboo.go builder configuration qzk services /opt/go/src/github.com/* /var/bamboo/config/development.json
 RUN wget --directory-prefix=/var/bamboo/config/  https://raw.githubusercontent.com/bianchettim/bamboo/master/development.json 
 
-RUN echo "* soft nofile 10240" >> /etc/security/limits.conf && echo "* hard nofile 10240" >> /etc/security/limits.conf && mkdir -p /run/haproxy 
+RUN mkdir -p /run/haproxy 
 
 EXPOSE 8000
 EXPOSE 80
