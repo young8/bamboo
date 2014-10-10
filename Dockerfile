@@ -3,7 +3,7 @@ FROM centos:centos7
 RUN yum install -y -q wget && wget http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-2.noarch.rpm 
 RUN yum localinstall -y -q epel-release-7-2.noarch.rpm 
 RUN rm -f epel-release-7-2.noarch.rpm 
-RUN yum --enablerepo=epel update -y -q && yum --enablerepo=epel install -y -q haproxy golang git mercurial  
+RUN yum --enablerepo=epel update -y -q && yum --enablerepo=epel install -y -q haproxy golang git mercurial initscripts 
 
 ENV GOPATH /opt/go
 RUN go get github.com/tools/godep
@@ -22,6 +22,6 @@ RUN echo "* soft nofile 10240" >> /etc/security/limits.conf && echo "* hard nofi
 EXPOSE 8000
 EXPOSE 80
 
-CMD ["--help"]
-ENTRYPOINT service haproxy start && /var/bamboo/bamboo -config="/var/bamboo/config/development.json" -bind=":8000"
+ENTRYPOINT /sbin/service haproxy start && /var/bamboo/bamboo -config="/var/bamboo/config/development.json" -bind=":8000"
+
 
