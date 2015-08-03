@@ -1,4 +1,4 @@
-ROM centos:centos6
+FROM centos:centos6
 RUN yum install -y -q wget && wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm && yum localinstall -y -q epel-release-6-8.noarch.rpm && rm -f epel-release-6-8.noarch.rpm && yum --enablerepo=epel update -y -q && yum --enablerepo=epel install -y -q haproxy golang git mercurial && yum clean all 
 
 ENV GOPATH /opt/go
